@@ -1,0 +1,12 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block main_contents %}
+    <h2>Login</h2>
+    <form method="post" action="/accounts/login/?next={{ next_page }}">
+        {% csrf_token %}
+        <div id="div-login-form"></div>
+    </form>
+{% endblock %}
+{% block extra_scripts %}
+    <script src="{% static "components/js/signinPage.bundle.js" %}"></script>
+{% endblock %}

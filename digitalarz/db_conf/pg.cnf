@@ -1,0 +1,8 @@
+# pg.cnf
+[client]
+'NAME': 'akah_focus',  # Name of your spatial database
+'USER': 'postgres',  # Database user
+'PASSWORD': 'postgres',  # Database password 'postpndgres7%6'
+'HOST': 'localhost', # '172.104.141.250'
+'PORT': '5432',
+

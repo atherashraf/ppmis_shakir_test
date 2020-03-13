@@ -1,0 +1,92 @@
+{% load static %}
+
+<html>
+
+<head>
+    <title>Snow Avalanche</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{% static "components/img/favicon.ico" %}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
+    <link rel="stylesheet" href="{% static "components/css/app-base.css" %}"/>
+    <link rel="stylesheet" href="{% static "vendor/bootstrap/bootstrap.min.css" %}"/>
+    {% block extra_styles %} {% endblock %}
+    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script src="{% static "vendor/jquery/jquery-3.3.1.min.js" %}"></script>
+    {#    <script src="{% static "vendor/bootstrap/bootstrap.min.js" %}"></script>#}
+    <script src="{% static "vendor/react/react.production.min.js" %}"></script>
+    <script src="{% static "vendor/react/react-dom.production.min.js" %}"></script>
+    <script>
+        /**
+         * Base Configuration Settings.
+         **/
+        config = {};
+        config.uri = "";
+        config.accountsURL = 'accounts/';
+        config.appDefaultColor = '#7c9884';
+        config.statusbarHeight = 25;
+        config.toolbarHeight = 65;
+        config.nextPage = "{{ next_page }}";
+        config.logoPath = "{% static "components/img/da-logo.png" %}";
+        {% if request.user.is_authenticated %}
+            config.userInfo = {{ user_info|safe }};
+            config.csrf_token = "{{ csrf_token }}";
+        {% else %}
+            config.user = {};
+        {% endif %}
+
+        config.navItems = {{ navbar_items|safe }};
+        config.userItems ={{ user_items|safe }};
+
+        config.wfsURL = "/sa/gis/wfs/geojson/"; //+ config.layerName + "/";
+
+    </script>
+</head>
+
+<body>
+
+<div id="full-page-contents">
+    {% block full_page_contents %}
+
+        <div id="full-page-contents">
+        <nav id="nav-topbar"></nav>
+        <div>
+
+            {% for message in messages %}
+                <div {% if message.tags %} class="alert {{ message.tags }}"{% endif %} role="alert"
+                                           style="z-index: 1000; padding-left:100px">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+        </div>
+        <div id="div-main-contents">
+            {% block main_contents %}
+
+
+            {% endblock %}
+        </div>
+        <div id="div-side-drawer"></div>
+        <nav id="nav-bottombar"></nav>
+        <div id="div-message"></div>
+        {% block extra_contents %}
+        {% endblock %}
+        <script>
+            $(function () {
+
+                setTimeout(function () {
+                    $(".alert").fadeOut(1000)
+                }, 5000);
+            });
+        </script>
+        <script src="{% static "components/js/base.bundle.js" %}"></script>
+        {% block extra_scripts %}{% endblock %}
+    {% endblock %}
+
+    </div>
+
+</body>
+
+</html>
