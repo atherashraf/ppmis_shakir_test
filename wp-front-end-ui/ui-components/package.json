@@ -24,7 +24,7 @@
     "file-loader": "^4.2.0",
     "flexmonster": "^2.7.20",
     "img-loader": "^3.0.1",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "jqwidgets-scripts": "^8.1.4",
     "material-ui-dropzone": "^2.4.7",
     "plotly.js": "^1.51.2",
